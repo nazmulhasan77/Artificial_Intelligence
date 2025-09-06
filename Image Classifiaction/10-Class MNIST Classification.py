@@ -12,10 +12,13 @@ def load_data():
 # Build model
 def build_model():
     inputs = Input((28,28))
-    x = Flatten()(inputs)
-    x = Dense(128, activation='relu')(x)
-    x = Dense(64, activation='relu')(x)
-    outputs = Dense(10, activation='softmax')(x)
+    x1 = Flatten()(inputs)
+    x2 = Dense(128, activation='relu')(x1)
+    x3 = Dense(256, activation='relu')(x2)
+    x4 = Dense(512, activation='relu')(x3)
+    x5 = Dense(256, activation='relu')(x4)
+    x6 = Dense(128, activation='relu')(x5)
+    outputs = Dense(10, activation='softmax')(x6)
     model = Model(inputs, outputs)
     return model
 
@@ -46,6 +49,7 @@ def main():
     plt.xlabel("No of Epochs")
     plt.ylabel("Accuracy")
     plt.title("Training Accuracy")
+    plt.savefig("training_accuracy.png")
     plt.legend()
     plt.show()
 
@@ -57,6 +61,7 @@ def main():
         plt.title(f"Pred: {predicted_labels[i]}\nTrue: {testY[i]}")
         plt.axis('off')
     plt.tight_layout()
+    plt.savefig("test_predictions.png")
     plt.show()
 
 if __name__ == "__main__":
